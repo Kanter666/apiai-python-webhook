@@ -30,24 +30,31 @@ def webhook():
 
 def processRequest(req):
     print ("started processing")
-    if req.get("result").get("action") != "yahooWeatherForecast":
-        return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = makeYqlQuery(req)
-    print ("yql query created")
-    if yql_query is None:
-        print("yqlquery is empty")
-        return {}
-    yql_url = baseurl + urllib.urlencode({'q': yql_query}) + "&format=json"
-    print(yql_url)
+    if req.get("result").get("action") == "startActionTracking":
+    	'''
+    	baseurl = "https://query.yahooapis.com/v1/public/yql?"
+	    yql_query = makeYqlQuery(req)
+	    print ("yql query created")
+	    if yql_query is None:
+	        print("yqlquery is empty")
+	        return {}
+	    yql_url = baseurl + urllib.urlencode({'q': yql_query}) + "&format=json"
+	    print(yql_url)
 
-    result = urllib.urlopen(yql_url).read()
-    print("yql result: ")
-    print(result)
+	    result = urllib.urlopen(yql_url).read()
+	    print("yql result: ")
+	    print(result)
 
-    data = json.loads(result)
-    res = makeWebhookResult(data)
-    return res
+	    data = json.loads(result)
+	    res = makeWebhookResult(data)
+	    '''
+	    return {
+        "speech": "Speech return",
+        "displayText": "Display text return",
+        "source": "apiai-weather-webhook-sample"
+    }
+    else:
+        return {}
 
 
 def makeYqlQuery(req):
