@@ -29,8 +29,9 @@ def webhook():
 
 
 def processRequest(req):
-    print ("started processing")
-    if req.get("result").get("action") == "startActionTracking":
+    print ("started processing with action = "+req.get("queryResult").get("action"))
+    if req.get("queryResult").get("action") == "startActionTracking":
+        print ("Inside startActionTracking")
         '''
         baseurl = "https://query.yahooapis.com/v1/public/yql?"
         yql_query = makeYqlQuery(req)
@@ -49,9 +50,7 @@ def processRequest(req):
         res = makeWebhookResult(data)
         '''
         return {
-        "speech": "Speech return",
-        "displayText": "Display text return",
-        "source": "apiai-weather-webhook-sample"
+        "fulfillmentText": "Dumb response"
     }
     else:
         return {}
